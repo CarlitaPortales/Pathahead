@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PathAhead · Maestrías en US: cuánto ganas y en cuánto pagas tu programa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10212B; --navy:#0F3D5C; --teal:#1A6F8E; --accent:#2E8BC0;
+    --line:#DCE5EB; --paper:#F7FAFB; --sub:#5B7180; --tealbg:#E6F1F5;
+    --sans:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.5;}
+  .hdr{background:var(--ink);color:#fff;padding:18px 24px;}
+  .hdr-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .logo{display:flex;align-items:center;gap:11px;}
+  .logo .mark{width:30px;height:30px;border-radius:8px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .logo .nm{font-size:17px;font-weight:700;}
+  .logo .tg{font-size:11.5px;color:#9DB4C2;margin-top:-2px;}
+  .pill-info{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:5px 11px;border-radius:20px;font-size:11px;color:#C5D5DF;}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px;}
+  .grid{display:grid;grid-template-columns:minmax(270px,310px) 1fr;gap:22px;align-items:start;}
+  @media(max-width:860px){.grid{grid-template-columns:1fr;}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;}
+  .panel h2{font-size:14px;font-weight:700;color:var(--navy);margin:0 0 3px;}
+  .panel .desc{font-size:12.5px;color:var(--sub);margin:0 0 16px;}
+  .field{margin-bottom:14px;}
+  .flabel{display:flex;align-items:center;gap:7px;margin-bottom:6px;font-size:11px;font-weight:600;color:var(--navy);letter-spacing:.3px;text-transform:uppercase;}
+  .flabel .ic{width:7px;height:7px;border-radius:2px;background:var(--teal);}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;}
+  .pill{flex:1;min-width:62px;padding:9px 6px;border-radius:9px;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:500;text-align:center;transition:all .15s;}
+  .pill.on{background:var(--navy);color:#fff;border-color:var(--teal);font-weight:600;}
+  .salwrap{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:9px;overflow:hidden;}
+  .salwrap .pre{padding:10px 11px;background:var(--paper);color:var(--sub);font-size:13px;border-right:1px solid var(--line);}
+  .salwrap input{flex:1;border:none;padding:10px 12px;font-family:var(--mono);font-size:14px;color:var(--ink);outline:none;width:100%;}
+  .salwrap .suf{padding:0 11px;color:var(--sub);font-size:11.5px;}
+  .note{font-size:11.5px;color:var(--sub);background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:10px 12px;line-height:1.5;margin-top:14px;}
+  .note b{color:var(--navy);}
+  .prio{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:16px;}
+  .prio .q{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+  .prio .h{font-size:11.5px;color:var(--sub);margin-bottom:11px;}
+  .prio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  @media(min-width:560px){.prio-grid{grid-template-columns:repeat(4,1fr);}}
+  .prc{padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:#fff;cursor:pointer;text-align:center;transition:all .15s;}
+  .prc .pe{font-size:17px;} .prc .pl{font-size:11px;font-weight:600;color:var(--ink);margin-top:3px;line-height:1.2;}
+  .prc.on{border-color:var(--teal);background:var(--tealbg);}
+  .punch{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--ink);}
+  .optnote{font-size:11.5px;color:var(--sub);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin-bottom:16px;line-height:1.5;}
+  .optnote b{color:var(--navy);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:12px;margin-bottom:16px;}
+  .ccard{border:1.5px solid var(--line);border-radius:14px;padding:15px 16px;background:#fff;position:relative;}
+  .ccard.match{border-color:var(--teal);box-shadow:0 0 0 3px var(--tealbg);}
+  .ccard .badge{position:absolute;top:-9px;left:14px;background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+  .ccard .cn{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.2;}
+  .ccard .pn{font-size:11.5px;color:var(--sub);margin-top:2px;}
+  .ccard .pn .city{color:var(--teal);font-weight:600;}
+  .ccard .heroes{display:flex;gap:14px;margin:12px 0 10px;flex-wrap:wrap;}
+  .ccard .hn{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink);line-height:1;}
+  .ccard .hl{font-size:10px;color:var(--sub);margin-top:3px;}
+  .ccard .brk{border-top:1px dashed var(--line);padding-top:9px;font-size:11.5px;color:var(--sub);line-height:1.7;}
+  .ccard .brk b{font-family:var(--mono);color:var(--navy);font-weight:500;}
+  .chartbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px;}
+  .charthead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+  .charthead .ct{font-size:14px;font-weight:700;color:var(--navy);}
+  .charthead .csel{font-size:12px;color:var(--sub);}
+  .charthead select{font-family:var(--sans);font-size:12px;border:1.5px solid var(--line);border-radius:7px;padding:4px 8px;color:var(--ink);background:#fff;}
+  .chartbox svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;flex-wrap:wrap;gap:13px;margin-top:9px;}
+  .legend .lg{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--sub);}
+  .legend .lg .sw{width:15px;height:3px;border-radius:2px;display:inline-block;}
+  .legend .lg.sel{color:var(--ink);font-weight:700;}
+  .chartnote{font-size:11px;color:var(--sub);margin-top:10px;line-height:1.5;}
+  .chartnote b{color:var(--navy);}
+  .capture{background:var(--navy);border-radius:16px;padding:20px 22px;color:#fff;margin-top:4px;}
+  .capture h3{font-size:15.5px;font-weight:700;margin:0 0 5px;}
+  .capture p{font-size:12.8px;color:#BCD0DC;margin:0 0 14px;}
+  .inrow{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:10px;}
+  .capture input,.capture select{flex:1;min-width:170px;padding:11px 13px;border-radius:9px;border:none;font-family:var(--sans);font-size:13.5px;color:var(--ink);}
+  .btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 18px;border-radius:9px;border:none;background:var(--teal);color:#fff;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
+  .g2g{margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);}
+  .g2g label.ck{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#DDE8EF;cursor:pointer;}
+  .g2g .extra{margin-top:11px;display:none;} .g2g .extra.show{display:block;}
+  .done{display:flex;align-items:center;gap:12px;}
+  .done .ck2{width:34px;height:34px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .foot{display:flex;align-items:flex-start;gap:7px;margin-top:14px;font-size:11px;color:var(--sub);line-height:1.5;}
+  a.link{color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="hdr"><div class="hdr-in">
+  <div class="logo"><div class="mark">P</div>
+    <div><div class="nm">PathAhead</div><div class="tg">Maestrías en US: cuánto ganas y en cuánto pagas tu programa</div></div>
+  </div>
+  <div class="pill-info">Programas y cifras reales 2025-26</div>
+</div></div>
+
+<div class="wrap"><div class="grid">
+
+  <div class="panel">
+    <h2>Arma tu escenario</h2>
+    <p class="desc">Compara programas reales de US. Cambia cualquier dato y todo recalcula.</p>
+
+    <div class="field">
+      <div class="flabel"><span class="ic"></span>Tipo de programa</div>
+      <div class="pills" id="type">
+        <div class="pill on" data-v="mba">MBA</div>
+        <div class="pill" data-v="master">Máster tech/diseño</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="flabel"><span class="ic"></span>Dónde quieres trabajar</div>
+      <div class="pills" id="ind">
+        <div class="pill on" data-v="consulting">Consulting</div>
+        <div class="pill" data-v="bigtech">Big Tech</div>
+        <div class="pill" data-v="startup">Startup</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="flabel"><span class="ic"></span>Tu seniority</div>
+      <div class="pills" id="lvl"></div>
+    </div>
+    <div class="field">
+      <div class="flabel"><span class="ic"></span>Financiamiento</div>
+      <div class="salwrap" style="margin-bottom:8px;"><span class="pre">$</span><input type="number" id="cash" min="0" step="1000" value="0" placeholder="0"><span class="suf">efectivo que aportas</span></div>
+      <div class="salwrap"><span class="pre">%</span><input type="number" id="rate" min="0" step="0.5" value="8"><span class="suf">interés anual del préstamo</span></div>
+      <div style="font-size:11px;color:var(--sub);margin-top:6px;line-height:1.45;">Lo que no cubras con efectivo se financia (préstamo a 10 años). $0 = crédito completo.</div>
+    </div>
+    <div class="note" id="roleNote"></div>
+  </div>
+
+  <div>
+    <div class="prio">
+      <div class="q">¿Qué es lo más importante para ti?</div>
+      <div class="h">Elige una prioridad y resaltamos el programa que más te da de eso. Ninguno es la opción "mala".</div>
+      <div class="prio-grid" id="prio"></div>
+    </div>
+
+    <div class="punch" id="punch"></div>
+    <div class="optnote" id="hintnote"></div>
+    <div class="cards" id="cards"></div>
+
+    <div class="optnote" id="optnote">ⓘ <b>OPT (referencial):</b> la mayoría de estos programas son STEM, lo que da hasta ~3 años de OPT para trabajar tras graduarte; algunos MBA no-STEM dan ~1 año. Pasado ese plazo, seguir en EE.UU. depende de la visa H-1B. Verifica la designación STEM con tu programa.</div>
+
+    <div class="capture" id="capture">
+      <div id="capform">
+        <h3>¿Te sirvió? Esto es una exploración</h3>
+        <p>Estoy probando herramientas como esta para latinos en product y tech. Déjame tu correo y te escribo desde mi Substack con lo próximo. <a id="sublink" class="link" href="#" target="_blank" rel="noopener" style="display:none;">Leer el Substack &rarr;</a></p>
+        <div class="inrow">
+          <input type="email" id="email" placeholder="tu@correo.com" required>
+          <button class="btn" id="send">Quiero las próximas &nbsp;→</button>
+        </div>
+        <div class="inrow"><input type="url" id="linkedin" placeholder="tu LinkedIn (opcional, para conversar)"></div>
+        <div class="g2g">
+          <label class="ck"><input type="checkbox" id="moved"> Ya estudié un máster en US — quiero aportar mi caso (anónimo)</label>
+          <div class="extra" id="extra">
+            <p style="margin:10px 0 8px;">Tu dato real me ayuda a calibrar esto para los que vienen detrás.</p>
+            <div class="inrow">
+              <input type="text" id="mProg" placeholder="¿Qué universidad/programa?">
+              <input type="number" id="mComp" placeholder="Tu comp total post-grado (USD)">
+            </div>
+            <div class="inrow"><input type="text" id="mVisa" placeholder="Industria + visa (ej. Big Tech, OPT)"></div>
+          </div>
+        </div>
+      </div>
+      <div id="capdone" class="done" style="display:none;">
+        <div class="ck2">✓</div>
+        <div><div style="font-size:14.5px;font-weight:700;">Anotado. Te escribo a <span id="doneEmail"></span> desde mi Substack.</div>
+        <div style="font-size:12.5px;color:#BCD0DC;margin-top:2px;">Gracias — tu input le da forma a lo que viene.</div></div>
+      </div>
+    </div>
+
+    <div class="foot"><span style="flex-shrink:0;">🛈</span>
+      <span><b>Métricas referenciales — no son una cotización.</b> Matrículas y costos de cada programa: datos publicados por las universidades (Stanford, MIT Sloan, Harvard, Berkeley Haas, Cornell Tech, NYU Stern, Northwestern Kellogg, UW Foster, CMU), 2025-26. Algunos costos de vida marcados "estimada" usan referencias de la ciudad (MIT Living Wage). Salarios post-grado estimados por industria, nivel y ciudad (Levels.fyi, base H-1B/LCA del DOL, reportes de empleo). El interés asume préstamo a 10 años. Verifica los números con cada programa antes de decidir.</span>
+    </div>
+  </div>
+</div></div>
+
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycby1RJoUFJJVHDdvpxVg7V9x3DHTRFOdKKIby1DAKVi2ccfdfkE4bDCnquWmVbuaq_y8/exec";
+const SUBSTACK_URL   = "PEGA_AQUI_TU_SUBSTACK";
+
+const LEVELS = { jr:{label:"Junior"}, mid:{label:"Mid"}, sr:{label:"Senior"}, lead:{label:"Lead"} };
+const POSTMULT = { jr:0.75, mid:1.0, sr:1.30, lead:1.60 };
+const ROLE = {
+  consulting:{jr:"Associate",mid:"Consultant",sr:"Engagement Mgr",lead:"Principal"},
+  bigtech:{jr:"New grad",mid:"PM/SWE II",sr:"Senior",lead:"Staff/Lead"},
+  startup:{jr:"Early hire",mid:"Mid",sr:"Senior",lead:"Head of"},
+};
+const GROWTH = { jr:0.13, mid:0.11, sr:0.10, lead:0.09 };
+const LCOL   = { jr:"#9DB4C2", mid:"#1A6F8E", sr:"#0F3D5C", lead:"#C08A2E" };
+const INDUSTRY = {
+  consulting:{ label:"Consulting", tech:125000, mba:190000 },
+  bigtech:   { label:"Big Tech",   tech:175000, mba:170000 },
+  startup:   { label:"Startup",    tech:150000, mba:155000 },
+};
+const CITY = {
+  bay:{ label:"Bay Area", living:45000, tax:0.34, sal:1.10 },
+  nyc:{ label:"Nueva York", living:44000, tax:0.36, sal:1.05 },
+  bos:{ label:"Boston", living:38000, tax:0.30, sal:1.00 },
+  sea:{ label:"Seattle", living:34000, tax:0.26, sal:1.05, notax:true },
+  chi:{ label:"Chicago", living:30000, tax:0.30, sal:0.97 },
+  pit:{ label:"Pittsburgh", living:24000, tax:0.29, sal:0.90 },
+};
+/* Universidades, programas y cifras reales (publicadas por cada escuela, 2025-26). total = matrícula + vida + fees del programa. */
+const PROGRAMS = [
+  { id:"stan-mba",   uni:"Stanford GSB",        name:"MBA",                          type:"mba",    city:"bay", years:2,   tuition:171510, total:271542 },
+  { id:"sloan-mba",  uni:"MIT Sloan",           name:"MBA",                          type:"mba",    city:"bos", years:2,   tuition:183784, total:273000 },
+  { id:"hbs-mba",    uni:"Harvard HBS",         name:"MBA",                          type:"mba",    city:"bos", years:2,   tuition:169520, total:260636 },
+  { id:"haas-mba",   uni:"Berkeley Haas",       name:"MBA (no-residente)",           type:"mba",    city:"bay", years:2,   tuition:178066, total:267310 },
+  { id:"cornell-mba",uni:"Cornell Tech",        name:"Tech MBA (Johnson) · 1 año",   type:"mba",    city:"nyc", years:1,   tuition:139030, total:180165 },
+  { id:"stern-mba",  uni:"NYU Stern",           name:"Tech MBA (Andre Koo) · 1 año", type:"mba",    city:"nyc", years:1,   tuition:101430, total:148500 },
+  { id:"kellogg-mba",uni:"Northwestern Kellogg",name:"MMM / MBAi",                   type:"mba",    city:"chi", years:2,   tuition:177920, total:262000 },
+  { id:"foster-mba", uni:"UW Foster",           name:"Tech Mgmt MBA (no-res.)",      type:"mba",    city:"sea", years:2,   tuition:119148, total:179000 },
+  { id:"stan-mde",   uni:"Stanford",            name:"MS in Design",                 type:"master", city:"bay", years:2,   tuition:117280, total:199280, livingEst:true },
+  { id:"hbs-mde",    uni:"Harvard",             name:"Master in Design Eng. (MDE)",  type:"master", city:"bos", years:2,   tuition:128000, total:209604 },
+  { id:"cmu-mse",    uni:"CMU · SCS",           name:"MS Software Engineering",      type:"master", city:"pit", years:2,   tuition:108000, total:152000, livingEst:true },
+  { id:"cmu-mspm",   uni:"CMU · SCS+Tepper",    name:"MS Product Mgmt · 1 año",      type:"master", city:"pit", years:1,   tuition:76356,  total:98356,  livingEst:true },
+  { id:"cmu-mism",   uni:"CMU · Heinz",         name:"MS Information Systems Mgmt",  type:"master", city:"pit", years:1.5, tuition:82388,  total:115388, livingEst:true },
+  { id:"cmu-mits",   uni:"CMU · CMIST",         name:"MS Info Tech Strategy",        type:"master", city:"pit", years:1,   tuition:60000,  total:82000,  livingEst:true },
+  { id:"cmu-etim",   uni:"CMU · CIT",           name:"MS Eng & Tech Innovation Mgmt",type:"master", city:"pit", years:1,   tuition:57436,  total:79436,  livingEst:true },
+];
+const PRIORITIES = [
+  {k:"costo",  e:"💸", l:"Menor costo total"},
+  {k:"payback",e:"⏱", l:"Pagarlo rápido"},
+  {k:"salario",e:"💰", l:"Mayor salario"},
+  {k:"vida",   e:"🏠", l:"Costo de vida bajo"},
+];
+const LOAN_TERM=10;
+const S = { type:"mba", industry:"consulting", level:"mid", cash:0, rate:8, chartCity:"bay", prio:null, moved:false };
+const fmt = n => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(Math.round(n));
+const recTxt = x => isFinite(x) ? x.toFixed(1)+" años" : "+15 años";
+const yrTxt = y => (y===1?"1 año":(y+" años"));
+function loanInterest(P, annualPct, years){ if(P<=0) return 0; var i=(annualPct/100)/12, n=years*12; if(i===0) return 0; var pmt=P*i/(1-Math.pow(1+i,-n)); return pmt*n - P; }
+function salaryFor(level,cityKey){ return INDUSTRY[S.industry][S.type==="mba"?"mba":"tech"]*CITY[cityKey].sal*POSTMULT[level]; }
+
+/* inputs */
+function pillRow(id,key,after){ document.querySelectorAll("#"+id+" .pill").forEach(p=>{
+  p.onclick=()=>{S[key]=p.dataset.v;document.querySelectorAll("#"+id+" .pill").forEach(c=>c.classList.toggle("on",c.dataset.v===S[key]));if(after)after();render();}; }); }
+pillRow("type","type"); pillRow("ind","industry");
+const lvlBox=document.getElementById("lvl");
+Object.entries(LEVELS).forEach(([k,v])=>{
+  const d=document.createElement("div"); d.className="pill"+(k===S.level?" on":""); d.dataset.v=k; d.textContent=v.label;
+  d.onclick=()=>{S.level=k;[...lvlBox.children].forEach(c=>c.classList.toggle("on",c.dataset.v===k));render();};
+  lvlBox.appendChild(d);
+});
+document.getElementById("cash").oninput=function(){S.cash=Math.max(0,parseInt(this.value||"0",10));render();};
+document.getElementById("rate").oninput=function(){S.rate=Math.max(0,parseFloat(this.value||"0"));render();};
+const prioBox=document.getElementById("prio");
+PRIORITIES.forEach(p=>{
+  const d=document.createElement("div"); d.className="prc"; d.dataset.k=p.k;
+  d.innerHTML='<div class="pe">'+p.e+'</div><div class="pl">'+p.l+'</div>';
+  d.onclick=()=>{S.prio=(S.prio===p.k)?null:p.k;[...prioBox.children].forEach(c=>c.classList.toggle("on",c.dataset.k===S.prio));render();};
+  prioBox.appendChild(d);
+});
+document.getElementById("moved").onchange=e=>{document.getElementById("extra").classList.toggle("show",e.target.checked);S.moved=e.target.checked;};
+
+/* compute */
+function calcProgram(p){
+  const city=CITY[p.city];
+  const loan=Math.max(0, p.total - S.cash);
+  const interest=loanInterest(loan, S.rate, LOAN_TERM);
+  const debt=loan+interest;
+  const cost=p.total + interest;
+  const living=p.total - p.tuition;
+  const post=salaryFor(S.level, p.city);
+  const net=post*(1-city.tax);
+  const savings=net-city.living;
+  const payback= savings>0 ? cost/savings : Infinity;
+  return {p,city,loan,interest,debt,cost,living,post,savings,payback};
+}
+function bestFor(prio,rows){
+  if(prio==="costo")   return rows.reduce((a,b)=>b.cost<a.cost?b:a).p.id;
+  if(prio==="payback") return rows.reduce((a,b)=>b.payback<a.payback?b:a).p.id;
+  if(prio==="salario") return rows.reduce((a,b)=>b.post>a.post?b:a).p.id;
+  if(prio==="vida")    return rows.reduce((a,b)=>b.city.living<a.city.living?b:a).p.id;
+  return null;
+}
+
+/* render */
+function render(){
+  const rows=PROGRAMS.filter(p=>p.type===S.type).map(calcProgram);
+  document.getElementById("roleNote").innerHTML=
+    "Como <b>"+LEVELS[S.level].label+"</b> que entra a <b>"+INDUSTRY[S.industry].label+"</b>, apuntas a un rol de <b>"+ROLE[S.industry][S.level]+"</b>, con mayor sueldo de salida. Por eso tu seniority cambia tanto el sueldo estimado.";
+
+  const best = S.prio ? bestFor(S.prio,rows) : null;
+  const prioLabel = S.prio ? PRIORITIES.find(p=>p.k===S.prio).l : "";
+  const salRows=rows.slice().sort((a,b)=>a.post-b.post);
+  const fastest=rows.reduce((a,b)=>b.payback<a.payback?b:a);
+  document.getElementById("punch").innerHTML=
+    "Como <b>"+LEVELS[S.level].label+"</b> en <b>"+INDUSTRY[S.industry].label+"</b>, tu sueldo post-grado estimado iría de <b>"+fmt(salRows[0].post)+"/año</b> ("+salRows[0].city.label+") a <b>"+fmt(salRows[salRows.length-1].post)+"/año</b> ("+salRows[salRows.length-1].city.label+"). Entre los "+rows.length+" programas de "+(S.type==="mba"?"MBA":"máster")+", el que pagas más rápido es <b>"+fastest.p.uni+"</b> (~"+recTxt(fastest.payback)+"). "+(S.prio?("Resaltamos el mejor para: "+prioLabel+"."):"Elige tu prioridad arriba.");
+
+  document.getElementById("hintnote").innerHTML=
+    "ⓘ El <b>sueldo post-grado</b> es un estimado para tu nivel (<b>"+LEVELS[S.level].label+"</b>) entrando a <b>"+INDUSTRY[S.industry].label+"</b> en la ciudad de cada programa. <b>«Para pagar el programa»</b> = los años que tardas en cubrir su costo con lo que ahorras al año de ese sueldo (después de impuestos y costo de vida).";
+
+  document.getElementById("cards").innerHTML=rows.map(r=>{
+    const match=best===r.p.id;
+    return '<div class="ccard'+(match?' match':'')+'">'+
+      (match?'<div class="badge">★ Mejor: '+prioLabel+'</div>':'')+
+      '<div class="cn">'+r.p.uni+'</div>'+
+      '<div class="pn">'+r.p.name+' · <span class="city">'+r.city.label+(r.city.notax?' · sin imp. estatal':'')+'</span></div>'+
+      '<div class="heroes">'+
+        '<div><div class="hn">'+fmt(r.post)+'</div><div class="hl">sueldo post-grado aprox. / año</div></div>'+
+        '<div><div class="hn">'+recTxt(r.payback)+'</div><div class="hl">para pagar el programa</div></div>'+
+      '</div>'+
+      '<div class="brk">Cuesta <b>'+fmt(r.cost)+'</b> ('+yrTxt(r.p.years)+'): matrícula <b>'+fmt(r.p.tuition)+'</b> + vida <b>'+fmt(r.living)+'</b>'+(r.p.livingEst?' (estimada)':'')+'<br>'+
+        (r.loan>0 ? 'Crédito <b>'+fmt(r.loan)+'</b> · interés '+S.rate+'% → deuda total <b>'+fmt(r.debt)+'</b><br>' : 'Pagado al contado (sin deuda)<br>')+
+        'Con ese sueldo ahorras ~<b>'+fmt(r.savings)+'</b>/año</div></div>';
+  }).join("");
+
+  window._best={ cheapest:rows.reduce((a,b)=>b.cost<a.cost?b:a).p.uni, fastest:fastest.p.uni };
+}
+
+/* submit */
+document.getElementById("send").onclick=async function(){
+  const email=document.getElementById("email").value.trim();
+  if(!email.includes("@")){document.getElementById("email").focus();return;}
+  this.disabled=true; this.textContent="Enviando…";
+  const payload={
+    timestamp:new Date().toISOString(), email,
+    linkedin:document.getElementById("linkedin").value.trim(),
+    tipo:(S.type==="mba"?"MBA":"Máster tech/diseño"), salida:INDUSTRY[S.industry].label, nivel:LEVELS[S.level].label,
+    efectivo_usd:S.cash, tasa_interes:S.rate, prioridad:S.prio||"",
+    programa_mas_barato:window._best.cheapest, programa_mas_rapido:window._best.fastest,
+    moved:S.moved?"sí":"no",
+    movedProg:S.moved?document.getElementById("mProg").value:"",
+    movedComp:S.moved?document.getElementById("mComp").value:"",
+    movedVisa:S.moved?document.getElementById("mVisa").value:"",
+  };
+  try{ if(SHEET_ENDPOINT && !SHEET_ENDPOINT.startsWith("PEGA_AQUI")){
+    await fetch(SHEET_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  }}catch(e){}
+  document.getElementById("doneEmail").textContent=email;
+  document.getElementById("capform").style.display="none";
+  document.getElementById("capdone").style.display="flex";
+};
+
+if(SUBSTACK_URL && !SUBSTACK_URL.startsWith("PEGA_AQUI")){
+  var _sl=document.getElementById("sublink"); _sl.href=SUBSTACK_URL; _sl.style.display="inline";
+}
+render();
+</script>
+</body>
+</html>
